@@ -19,10 +19,18 @@ public abstract class BaseState : MonoBehaviour
     public abstract void EnterState();
     protected abstract void UpdateState();
     public abstract void ExitState();
+    public abstract void CheckSwitchState();
     public void UpdateStates()
     {
         UpdateState();
+        CheckSwitchState();
         if (_currSubState != null) _currSubState.UpdateStates();
+    }
+    protected virtual void FixedUpdateState() { }
+    public void FixedUpdateStates()
+    {
+        FixedUpdateState();
+        if(_currSubState != null) _currSubState.FixedUpdateState();
     }
     public void ChangeState(BaseState newState)
     {

@@ -5,6 +5,12 @@ public class PlayerJumpingState : BaseState
     [SerializeField] float jumpStrength;
     [SerializeField] Rigidbody2D rb;
     bool isGrounded;
+
+    public override void CheckSwitchState()
+    {
+        if (rb.velocity.y < 0f && isGrounded) ChangeState(Ctx.GetStateByType<IsGroundedState>());
+    }
+
     public override void EnterState()
     {
         SetSubState(Ctx.GetStateByType<PlayerIdleState>());
@@ -25,6 +31,6 @@ public class PlayerJumpingState : BaseState
 
     protected override void UpdateState()
     {
-        if (rb.velocity.y < 0f && isGrounded) ChangeState(Ctx.GetStateByType<IsGroundedState>());
+        
     }
 }

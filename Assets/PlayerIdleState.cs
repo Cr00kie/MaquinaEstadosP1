@@ -3,6 +3,11 @@ public class PlayerIdleState : BaseState
 {
     [SerializeField] Rigidbody2D rb;
 
+    public override void CheckSwitchState()
+    {
+        if (Input.GetAxisRaw("Horizontal") != 0) ChangeState(Ctx.GetStateByType<PlayerMoveState>());
+    }
+
     public override void EnterState()
     {
         print("Entering IdleState...");
@@ -16,6 +21,6 @@ public class PlayerIdleState : BaseState
 
     protected override void UpdateState()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0) ChangeState(Ctx.GetStateByType<PlayerMoveState>());
+        
     }
 }

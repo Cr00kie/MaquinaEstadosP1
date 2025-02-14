@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class IsGroundedState : BaseState
 {
+    public override void CheckSwitchState()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
+    }
+
     public override void EnterState()
     {
         print("Entering isGroundedState ...");
@@ -15,6 +20,6 @@ public class IsGroundedState : BaseState
 
     protected override void UpdateState()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
+        
     }
 }

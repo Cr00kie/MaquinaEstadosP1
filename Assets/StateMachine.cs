@@ -47,6 +47,10 @@ public class StateMachine : MonoBehaviour
     {
         CurrState.UpdateStates();
     }
+    private void FixedUpdate()
+    {
+        CurrState.FixedUpdateStates();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
