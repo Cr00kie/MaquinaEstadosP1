@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public abstract class StateMachine : MonoBehaviour
 {
-    //[SerializeReference] StateFactory _stateFactory;
-
     #region State Factory
     [SerializeField] BaseState[] _states;
 
@@ -38,7 +36,6 @@ public class StateMachine : MonoBehaviour
 
     private void Start()
     {
-        //CurrState = _stateFactory.GetStateByIndex(0);
         CurrState = GetStateByIndex(0);
         CurrState.EnterState();
     }

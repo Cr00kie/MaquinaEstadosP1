@@ -4,7 +4,7 @@ public class IsGroundedState : BaseState
 {
     public override void CheckSwitchState()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
+        if (Input.GetKeyDown(KeyCode.Space) || GetCTX<PlayerStateMachine>().JumpBuffer > 0) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
     }
 
     public override void EnterState()

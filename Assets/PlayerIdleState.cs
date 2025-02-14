@@ -1,7 +1,6 @@
 using UnityEngine;
 public class PlayerIdleState : BaseState
 {
-    [SerializeField] Rigidbody2D rb;
 
     public override void CheckSwitchState()
     {

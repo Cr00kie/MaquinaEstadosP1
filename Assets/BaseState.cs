@@ -8,8 +8,10 @@ public abstract class BaseState : MonoBehaviour
     BaseState _currSubState;
 
     protected StateMachine Ctx { get; private set; }
-    //protected StateFactory StateFactory { get; private set; }
-
+    protected StateMachineType GetCTX<StateMachineType>() where StateMachineType : StateMachine
+    {
+        return Ctx as StateMachineType;
+    }
 
     public void SetupState(StateMachine ctx)
     {

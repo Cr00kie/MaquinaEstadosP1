@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 163331986}
   - component: {fileID: 163331985}
   - component: {fileID: 163331984}
-  - component: {fileID: 163331991}
+  - component: {fileID: 163331994}
   - component: {fileID: 163331988}
   - component: {fileID: 163331993}
   - component: {fileID: 163331990}
@@ -172,7 +172,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &163331985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -298,7 +298,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRootState: 0
-  rb: {fileID: 163331984}
 --- !u!114 &163331990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,25 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRootState: 1
-  jumpStrength: 10
-  rb: {fileID: 163331984}
---- !u!114 &163331991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163331982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e1c76d985eb7c459f49265d2b48e83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _states:
-  - {fileID: 163331992}
-  - {fileID: 163331990}
-  - {fileID: 163331988}
-  - {fileID: 163331993}
+  _jumpStrength: 10
 --- !u!114 &163331992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,8 +338,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRootState: 0
-  rb: {fileID: 163331984}
   speed: 10
+--- !u!114 &163331994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163331982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f726556b551f4489c568b325dd1b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _states:
+  - {fileID: 163331992}
+  - {fileID: 163331990}
+  - {fileID: 163331988}
+  - {fileID: 163331993}
+  _rb: {fileID: 163331984}
+  _jumpBufferTime: 0.35
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

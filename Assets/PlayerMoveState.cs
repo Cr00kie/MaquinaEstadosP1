@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMoveState : BaseState
 {
-    [SerializeField] Rigidbody2D rb;
 
     [SerializeField] float speed;
     float mov;
