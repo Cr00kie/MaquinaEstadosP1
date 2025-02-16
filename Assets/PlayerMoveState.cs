@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class PlayerMoveState : BaseState
 {
-
     [SerializeField] float speed;
     float mov;
+    PlayerStateMachine ctx;
+
+    public override void OnStateSetUp()
+    {
+        ctx = GetCTX<PlayerStateMachine>();
+    }
     public override void EnterState()
     {
         print("Entering moving state...");
@@ -22,7 +27,7 @@ public class PlayerMoveState : BaseState
 
     protected override void UpdateState()
     {
-        mov  = Input.GetAxisRaw("Horizontal");
+        mov = ctx.playerInputActions.Player.Movement.ReadValue<float>();
 
         transform.position = new Vector2(transform.position.x + mov * speed * Time.deltaTime, transform.position.y);
     }

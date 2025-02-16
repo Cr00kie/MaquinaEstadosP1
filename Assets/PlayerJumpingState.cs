@@ -8,9 +8,15 @@ public class PlayerJumpingState : BaseState
     bool _airSpeedReduced;
     Rigidbody2D _rb;
 
+    PlayerStateMachine ctx;
+    public override void OnStateSetUp()
+    {
+        ctx = GetCTX<PlayerStateMachine>();
+    }
+
     private void Start()
     {
-        _rb = GetCTX<PlayerStateMachine>().Rb;
+        _rb = ctx.Rb;
     }
 
     public override void CheckSwitchState()
@@ -30,7 +36,7 @@ public class PlayerJumpingState : BaseState
     public override void ExitState()
     {
         print("Exiting jumping state...");
-        GetCTX<PlayerStateMachine>().JumpBuffer = _jumpBuffer;
+        ctx.JumpBuffer = _jumpBuffer;
     }
 
     protected override void CollisionEnter(Collision2D other)
@@ -40,16 +46,16 @@ public class PlayerJumpingState : BaseState
 
     protected override void UpdateState()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(GetCTX<PlayerStateMachine>().IsJumpPressed)
         {
-            _jumpBuffer = GetCTX<PlayerStateMachine>().JumpBufferTime;
+            _jumpBuffer = ctx.JumpBufferTime;
         }
         else if(_jumpBuffer > 0)
         {
             _jumpBuffer -= Time.deltaTime;
         }
 
-        if (!_airSpeedReduced && !Input.GetKey(KeyCode.Space) && _rb.velocity.y > 0)
+        if (!_airSpeedReduced && !ctx.IsJumpPressed && _rb.velocity.y > 0)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.3f);
             _airSpeedReduced = true;

@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class IsGroundedState : BaseState
 {
+    PlayerStateMachine ctx;
+    public override void OnStateSetUp()
+    {
+        ctx = GetCTX<PlayerStateMachine>();
+    }
     public override void CheckSwitchState()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || GetCTX<PlayerStateMachine>().JumpBuffer > 0) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
+        if (ctx.IsJumpPressed || ctx.JumpBuffer > 0) ChangeState(Ctx.GetStateByType<PlayerJumpingState>());
     }
 
     public override void EnterState()

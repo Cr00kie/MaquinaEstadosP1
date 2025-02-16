@@ -7,7 +7,16 @@ public abstract class BaseState : MonoBehaviour
     BaseState _currParentState;
     BaseState _currSubState;
 
+    /// <summary>
+    /// The state's current context.
+    /// </summary>
     protected StateMachine Ctx { get; private set; }
+
+    /// <summary>
+    /// Method to access the specific context of a state.
+    /// </summary>
+    /// <typeparam name="StateMachineType"></typeparam>
+    /// <returns>Returns the state's context downcasted as <typeparamref name="StateMachineType"/> or null if the downcasting wasn't possible</returns>
     protected StateMachineType GetCTX<StateMachineType>() where StateMachineType : StateMachine
     {
         return Ctx as StateMachineType;
@@ -16,11 +25,32 @@ public abstract class BaseState : MonoBehaviour
     public void SetupState(StateMachine ctx)
     {
         Ctx = ctx;
+        OnStateSetUp();
     }
 
+    /// <summary>
+    /// Method called after the context for the state is set.
+    /// </summary>
+    public virtual void OnStateSetUp() { }
+
+    /// <summary>
+    /// Method called when transitioning into the state.
+    /// </summary>
     public abstract void EnterState();
+
+    /// <summary>
+    /// Method called every frame when the current state is this state.
+    /// </summary>
     protected abstract void UpdateState();
+
+    /// <summary>
+    /// Method called before transitioning into another state.
+    /// </summary>
     public abstract void ExitState();
+
+    /// <summary>
+    /// Method called after UpdateState to check for state transitions.
+    /// </summary>
     public abstract void CheckSwitchState();
     public void UpdateStates()
     {
@@ -34,6 +64,13 @@ public abstract class BaseState : MonoBehaviour
         FixedUpdateState();
         if(_currSubState != null) _currSubState.FixedUpdateState();
     }
+
+    /// <summary>
+    /// Changes the context current state to <paramref name="newState"/> if the current state is a rootState.
+    /// Otherwise changes the current state's parent to <paramref name="newState"/>.
+    /// </summary>
+    /// <param name="newState">The state to transition to.</param>
+    /// <exception cref="UnityException">Called if the transition wasn't possible.</exception>
     public void ChangeState(BaseState newState)
     {
         ExitState();
@@ -74,11 +111,21 @@ public abstract class BaseState : MonoBehaviour
         CollisionExit(collision);
         if (_currSubState != null) _currSubState.ExecuteCollisionExit(collision);
     }
+
+    /// <summary>
+    /// Method used to change the substate.
+    /// </summary>
+    /// <param name="state">The new substate to transition to.</param>
     public void SetSubState(BaseState state)
     {
         _currSubState = state;
         _currSubState.SetParentState(this);
     }
+
+    /// <summary>
+    /// Method used to change the parentstate.
+    /// </summary>
+    /// <param name="state">The new parent state for the state-</param>
     public void SetParentState(BaseState state)
     {
         _currParentState = state;
